@@ -1,13 +1,15 @@
-import rateLimit from 'express-rate-limit'
+import { createRequire } from 'node:module'
+import express from 'express'
+import cors from 'cors'
 import { publicRoutes } from './routes/public.js'
 import { adminRoutes } from './routes/admin.js'
 import { customerRoutes } from './routes/customer.js'
 import { paymentRoutes } from './routes/payments.js'
 import { webhookRoutes } from './routes/webhooks.js'
 import { clerkAuthenticator, requireCustomer, requireAdmin, type Authenticator } from './middleware/auth.js'
-import express from 'express'
-import cors from 'cors'
-import helmet from 'helmet'
+const require = createRequire(import.meta.url)
+const helmet = require('helmet') as any
+const rateLimit = require('express-rate-limit') as any
 import type { Environment } from './config/env.js'
 import { isDatabaseReady, pingDatabase } from './config/database.js'
 import { logger, type Logger } from './lib/logger.js'
