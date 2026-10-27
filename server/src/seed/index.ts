@@ -1,14 +1,14 @@
 import { normalizeSearch } from '../lib/search.js'
 import { readFileSync } from 'node:fs'
 import { resolve, basename } from 'node:path'
-import { fileURLToPath } from 'node:url'
 import vm from 'node:vm'
 import ts from 'typescript'
 import mongoose from 'mongoose'
 import { Category, Product, Post, SiteBlock, LegalPage, Migration, ensureIndexes } from '../models/index.js'
 import { productInput, categoryInput, postInput, websiteInput, legalInput } from '../lib/validation.js'
 import { assertAssets } from '../lib/assets.js'
-const root = fileURLToPath(new URL('../../../client/src/data/', import.meta.url))
+// ...
+const root = process.env.CLIENT_DATA_DIR || resolve(process.cwd(), '..', 'client', 'src', 'data')
 function loadSource(name: string): Record<string, unknown> {
   if (!['products', 'journal', 'legal-documents', 'content-seed'].includes(name)) throw new Error('Unsupported seed module')
   const source = readFileSync(resolve(root, `${name}.ts`), 'utf8')
