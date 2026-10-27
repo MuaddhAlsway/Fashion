@@ -12,7 +12,7 @@ import { connectDatabase, disconnectDatabase, isDatabaseReady, pingDatabase } fr
 import { checkMongoReadiness } from '../src/services/mongodb-readiness.js'
 import { Product, Cart, Wishlist, Order, Customer, Category, Address, Activity, models } from '../src/models/index.js'
 import { readSeed, seedDatabase } from '../src/seed/index.js'
-import { createApp } from '../src/app.js'
+import { createApp } from '../src/application.js'
 const silent = { info() {}, error() {} }
 
 test('URI requires an explicit database and never exposes failed values', () => {

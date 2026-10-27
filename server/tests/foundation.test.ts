@@ -4,7 +4,7 @@ import { mkdtempSync, writeFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import request from 'supertest'
-import { createApp } from '../src/app.js'
+import { createApp } from '../src/application.js'
 import { loadEnvironment, validateEnvironment } from '../src/config/env.js'
 import type { Logger } from '../src/lib/logger.js'
 
