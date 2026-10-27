@@ -4,7 +4,6 @@ import { UserRound } from 'lucide-react'
 
 export default function AuthIcon({ closeMenu }: { closeMenu: () => void }) {
   const { user } = useUser()
-  const clerk = useClerk()
   if (!user) {
     return <Link className="site-header__icon-button" to="/login" aria-label="Log in" onClick={closeMenu}><UserRound aria-hidden="true" /></Link>
   }
