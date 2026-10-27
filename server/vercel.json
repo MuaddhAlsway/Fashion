@@ -1,11 +1,3 @@
 {
-  "version": 2,
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/src/server.ts" }
-  ],
-  "functions": {
-    "src/server.ts": {
-      "maxDuration": 10
-    }
-  }
+  "version": 2
 }
