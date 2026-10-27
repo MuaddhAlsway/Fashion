@@ -1,10 +1,10 @@
-# FASHION
+# 🛍️ FASHION
 
 Full-stack fashion storefront with an Express/TypeScript/MongoDB backend and a React/Vite frontend. Supports demo mode (local) and connected API mode (backend-backed) with Clerk authentication, customer accounts, cart, wishlist, checkout, and an admin CMS.
 
 ---
 
-## Table of Contents
+## 📑 Table of Contents
 
 - [Overview](#overview)
 - [Architecture](#architecture)
@@ -24,7 +24,7 @@ Full-stack fashion storefront with an Express/TypeScript/MongoDB backend and a R
 
 ---
 
-## Overview
+## 📖 Overview
 
 FASHION is a monorepo containing:
 - **Backend:** Node.js >= 22, Express 5, TypeScript, Mongoose, MongoDB Atlas
@@ -33,7 +33,7 @@ FASHION is a monorepo containing:
 - **Payments:** Stripe (disabled until business approval)
 - **Email:** Resend (disabled until verified sender)
 
-## Architecture
+## 🏗️ Architecture
 
 ```
 ┌─────────────┐     HTTPS      ┌─────────────────┐     MongoDB     ┌─────────────┐
@@ -49,7 +49,7 @@ FASHION is a monorepo containing:
 - Backend verifies Clerk sessions and uses MongoDB roles for authorization.
 - Webhooks sync Clerk user lifecycle to MongoDB `customers` collection.
 
-## Repository Structure
+## 📁 Repository Structure
 
 ```
 multistore/
@@ -82,7 +82,7 @@ multistore/
 └── README.md
 ```
 
-## Features
+## ✨ Features
 
 ### Storefront
 - Home, marketplace, product detail, cart, wishlist
@@ -98,7 +98,7 @@ multistore/
 - Newsletter subscriber management
 - Asset picker from approved images
 
-### Backend
+### ⚙️ Backend
 - MongoDB Atlas connection with DNS diagnostics
 - Safe seed (12 products, categories, journal, content, legal)
 - Clerk webhook (create/update/delete profile sync)
@@ -108,7 +108,7 @@ multistore/
 - Payment initiation (Stripe, pending config)
 - Email outbox (Resend, disabled by default)
 
-## Prerequisites
+## 📋 Prerequisites
 
 - Node.js >= 22
 - MongoDB Atlas cluster (or local replica set)
@@ -116,7 +116,7 @@ multistore/
 - Stripe account (optional, for payments)
 - Resend account (optional, for email)
 
-## Backend
+## ⚙️ Backend
 
 ### Setup
 ```powershell
@@ -138,7 +138,7 @@ cp .env.example .env
 | `npm run seed` | Seed reviewed content (operator only) |
 | `npm run typecheck` | TypeScript type check |
 
-## Frontend
+## 🎨 Frontend
 
 ### Setup
 ```powershell
@@ -161,7 +161,7 @@ VITE_CLERK_PUBLISHABLE_KEY=<your Clerk publishable key>
 | `npm run lint` | Lint |
 | `npm run preview` | Preview build |
 
-## Environment Variables
+## 🔐 Environment Variables
 
 ### Server (`server/.env`)
 | Variable | Required | Description |
@@ -191,16 +191,16 @@ VITE_CLERK_PUBLISHABLE_KEY=<your Clerk publishable key>
 | `VITE_CLERK_PUBLISHABLE_KEY` | If api | Clerk publishable key |
 | `VITE_CATALOG_SOURCE` | No | `api` (default) or `demo` |
 
-## Running Locally
+## 🚀 Running Locally
 
-### Backend
+### ⚙️ Backend
 ```powershell
 cd server
 $env:MONGODB_DNS_SERVERS='1.1.1.1,8.8.8.8'
 npm run dev
 ```
 
-### Frontend
+### 🎨 Frontend
 ```powershell
 cd client
 npm run dev
@@ -208,16 +208,16 @@ npm run dev
 
 Open `http://localhost:5173`. Backend runs on `http://localhost:5000`.
 
-## Testing
+## 🧪 Testing
 
-### Backend
+### ⚙️ Backend
 ```powershell
 cd server
 npm test
 ```
 31 tests covering config, auth, webhooks, orders, payments, seed, and diagnostics.
 
-### Frontend
+### 🎨 Frontend
 ```powershell
 cd client
 npm run build
@@ -232,28 +232,28 @@ npm run db:check
 npm run db:check -- --catalog --indexes
 ```
 
-## Deployment
+## ☁️ Deployment
 
-### Backend (Render recommended)
+### ⚙️ Backend (Render recommended)
 - **Root Directory:** `server`
 - **Build Command:** `npm install --include=dev && npm run build`
 - **Start Command:** `npm start`
 - **Health Check:** `/api/health/live`
 - Set env vars in Render dashboard.
 
-### Frontend (Vercel)
+### 🎨 Frontend (Vercel)
 - **Root Directory:** `client`
 - **Build Command:** `npm run build`
 - **Output Directory:** `dist`
 - Set `VITE_API_BASE_URL` to the backend URL.
 
-### Backend (Vercel, optional)
+### ⚙️ Backend (Vercel, optional)
 - Root Directory: `server`
 - Vercel auto-detects `src/server.ts`
 - Set env vars in Vercel dashboard.
 - Atlas must allow Vercel IPs (`0.0.0.0/0` for testing).
 
-## Clerk Webhook
+## 🔗 Clerk Webhook
 
 Endpoint:
 ```
@@ -267,7 +267,7 @@ Subscribe to:
 
 Confirm the signing secret matches `CLERK_WEBHOOK_SIGNING_SECRET`.
 
-## Admin Promotion
+## 👑 Admin Promotion
 
 Never promote without verification. Steps:
 1. User signs up and verifies email.
@@ -279,7 +279,7 @@ Never promote without verification. Steps:
    npm run admin:promote -- <clerk-user-id> <email> --confirm
    ```
 
-## Troubleshooting
+## 🛠️ Troubleshooting
 
 ### MongoDB connection timeout on Vercel
 - Use the standard (non-SRV) connection string.
@@ -299,7 +299,7 @@ Never promote without verification. Steps:
 ### Admin access denied
 - Account must be promoted via `npm run admin:promote`.
 
-## Security Notes
+## 🔒 Security Notes
 
 - Checkout disabled by default.
 - Email disabled by default.
@@ -312,6 +312,6 @@ Never promote without verification. Steps:
 - Roles are server-owned; client cannot escalate.
 - No public admin bootstrap endpoint.
 
-## License
+## 📄 License
 
 Private project. All rights reserved.
