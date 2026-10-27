@@ -99,3 +99,7 @@
   .site-header__links,
   .site-header__actions { transition: none; }
 }
+
+.site-header__avatar-button { padding: 0; overflow: hidden; }
+.site-header__avatar { width: 100%; height: 100%; object-fit: cover; border-radius: 999px; }
+

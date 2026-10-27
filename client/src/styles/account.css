@@ -178,3 +178,49 @@
     width: min(100% - 1.25rem, 1200px);
   }
 }
+
+.account-profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.account-avatar {
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #e7e3dc;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+
+.account-avatar__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.account-avatar__initial {
+  font-size: 1.5rem;
+  color: #514b42;
+}
+
+.account-avatar__button {
+  position: absolute;
+  right: -0.25rem;
+  bottom: -0.25rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  border: 1px solid #e7e3dc;
+  background: #fff;
+  color: #211f1b;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.account-avatar__button input { display: none; }

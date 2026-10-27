@@ -5,6 +5,8 @@ import { Link } from 'react-router'
 import { Heart, Menu, ShoppingBag, UserRound, X } from 'lucide-react'
 import '../../styles/Navbar.css'
 import { useCart } from '../../context/CartContext'
+import { apiEnabled } from '../../api/config'
+import AuthIcon from './AuthIcon'
 
 const navigationItems = [
   { label: 'Home', to: '/' },
@@ -82,7 +84,7 @@ function Navbar() {
         {wishlistCount > 0 && <li><Link className="site-header__icon-button site-header__bag" to="/wishlist" aria-label={`Wishlist, ${wishlistCount} saved ${wishlistCount === 1 ? 'product' : 'products'}`} onClick={closeMenu}><Heart aria-hidden="true" /><span className="site-header__cart-count" aria-hidden="true">{wishlistCount}</span></Link></li>}
 
         <li><SearchDialog onOpen={closeMenu} /></li>
-        <li><Link className="site-header__icon-button" to="/login" aria-label="Log in" onClick={closeMenu}><UserRound aria-hidden="true" /></Link></li>
+        <li>{apiEnabled ? <AuthIcon closeMenu={closeMenu} /> : <Link className="site-header__icon-button" to="/login" aria-label="Log in" onClick={closeMenu}><UserRound aria-hidden="true" /></Link>}</li>
         <li>
           <Link className="site-header__icon-button site-header__bag" to="/cart" aria-label={`Shopping bag, ${itemCount} ${itemCount === 1 ? 'item' : 'items'}`} onClick={closeMenu}>
             <ShoppingBag aria-hidden="true" />
