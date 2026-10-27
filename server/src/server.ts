@@ -11,6 +11,7 @@ import type { Environment } from './config/env.js'
 let config: Environment | undefined
 let configured = false
 let app: ReturnType<typeof createApp> | ReturnType<typeof express>
+let configError = 'Configuration error'
 
 try {
   config = loadEnvironment()
@@ -18,9 +19,10 @@ try {
   configured = true
 } catch (error) {
   logger.error('startup_failed', { stage: 'configuration' })
+  configError = error instanceof Error ? error.message : 'Configuration error'
   app = express()
   app.use((_req, res) => {
-    res.status(500).json({ status: 'error', service: 'fashion-api', message: 'Configuration error' })
+    res.status(500).json({ status: 'error', service: 'fashion-api', message: configError })
   })
 }
 
