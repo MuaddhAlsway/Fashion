@@ -1,6 +1,8 @@
 import { normalizeSearch } from '../lib/search.js'
 import { Router } from 'express'
-import rateLimit from 'express-rate-limit'
+import { createRequire } from 'node:module'
+const require = createRequire(import.meta.url)
+const rateLimit = require('express-rate-limit') as any
 import { Product, Category, Post, SiteBlock, LegalPage, Subscriber, Contact } from '../models/index.js'
 import { pagination, newsletterInput, contactInput, parse } from '../lib/validation.js'
 import { dto, productDto, postDto, pathValue, pageResult, escapeRegex } from '../lib/api.js'
