@@ -6,7 +6,9 @@ import { MongoReadinessError } from '../lib/mongodb-diagnostics.js'
 
 mongoose.set('bufferCommands', false)
 export function mongoConnectionSettings(config: MongoConfiguration | string) {
-  const { mongodbUrl, mongodbDnsServers = [] } = typeof config === 'string' ? { mongodbUrl: config } : config
+  const { mongodbUrl, mongodbDnsServers: configuredServers = [] } = typeof config === 'string' ? { mongodbUrl: config } : config
+  // Vercel's default resolver can fail to reach Atlas SRV/direct hosts; use public resolvers there when none are configured.
+  const mongodbDnsServers = configuredServers.length ? configuredServers : (process.env.VERCEL ? ['1.1.1.1', '8.8.8.8'] : [])
   configureMongoDns(mongodbDnsServers)
   return { uri: mongodbUrl, options: { dbName: databaseNameFromUri(mongodbUrl), serverSelectionTimeoutMS: 10_000, connectTimeoutMS: 10_000, autoCreate: false, autoIndex: false } }
 }
