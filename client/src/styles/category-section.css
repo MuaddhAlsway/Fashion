@@ -1,0 +1,113 @@
+.category-section {
+  width: min(100% - 3rem, 1440px);
+  margin-inline: auto;
+  padding-block: clamp(3rem, 7vw, 6rem);
+  font-family: 'Outfit', Arial, sans-serif;
+}
+
+.category-section__heading {
+  max-width: 620px;
+  margin-bottom: 2rem;
+}
+
+.category-section__eyebrow {
+  margin: 0 0 0.5rem;
+  color: #8a6b42;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.category-section__title {
+  margin: 0;
+  color: #171715;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+.category-section__heading .category-section__description {
+  margin: 0.75rem 0 0;
+  color: #6d6a64;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.category-section__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.category-card {
+  position: relative;
+  display: flex;
+  aspect-ratio: 4 / 3;
+  min-height: 0;
+  align-items: flex-end;
+  overflow: hidden;
+  border-radius: 20px;
+  background-color: #dedbd6;
+  background-position: center;
+  background-size: cover;
+  color: #fff;
+  text-decoration: none;
+  isolation: isolate;
+}
+
+.category-card__overlay {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgb(0 0 0 / 0%) 30%,
+    rgb(0 0 0 / 12%) 55%,
+    rgb(0 0 0 / 68%) 100%
+  );
+}
+
+.category-card__content {
+  display: grid;
+  gap: 0.4rem;
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.category-card__description {
+  font-size: 0.9rem;
+}
+
+.category-card__title {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+.category-card__cta {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.category-card:focus-visible {
+  outline: 3px solid #8a6b42;
+  outline-offset: 4px;
+}
+
+@media (max-width: 640px) {
+  .category-section {
+    width: min(100% - 2rem, 1440px);
+    padding-block: 3rem;
+  }
+
+  .category-section__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .category-card__overlay {
+    transition: none;
+  }
+}

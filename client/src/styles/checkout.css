@@ -1,0 +1,266 @@
+#root > main.checkout {
+  display: block;
+}
+
+.checkout {
+  box-sizing: border-box;
+  width: min(100% - 2rem, 1200px);
+  margin-inline: auto;
+  padding-block: 1.25rem clamp(2rem, 5vw, 4rem);
+  color: #211f1b;
+  font-family: 'Outfit', Arial, sans-serif;
+}
+
+.checkout__header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e7e3dc;
+}
+
+.checkout__eyebrow {
+  margin: 0 0 0.6rem;
+  color: #81745f;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+}
+
+.checkout__title {
+  margin: 0;
+  font-family: 'Prata', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 400;
+}
+
+.checkout__steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.checkout__step {
+  color: #99948c;
+  font-size: 0.85rem;
+}
+
+.checkout__step--active {
+  color: #211f1b;
+  font-weight: 600;
+}
+
+.checkout__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 380px);
+  align-items: start;
+  gap: clamp(2rem, 6vw, 5rem);
+}
+
+.checkout__main,
+.checkout-summary {
+  min-width: 0;
+}
+
+.checkout-form {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.checkout-form__title,
+.checkout-summary__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.checkout-field {
+  display: grid;
+  gap: 0.45rem;
+  color: #55514a;
+  font-size: 0.85rem;
+}
+
+.checkout-field input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 48px;
+  padding: 0.75rem;
+  border: 1px solid #d9d5ce;
+  border-radius: 0;
+  background: #fff;
+  color: #211f1b;
+  font: inherit;
+}
+
+.checkout-field input:focus-visible {
+  outline: 2px solid #8a6b42;
+  outline-offset: 2px;
+}
+
+.checkout-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.checkout__button {
+  display: inline-flex;
+  min-height: 3.2rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1rem;
+  border: 1px solid #211f1b;
+  text-align: center;
+  text-decoration: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.checkout__button--dark {
+  background: #211f1b;
+  color: #fff;
+}
+
+.checkout-form > .checkout__button {
+  margin-top: 0.5rem;
+}
+
+.checkout-summary {
+  padding: 1.4rem;
+  background: #f7f5f1;
+}
+
+.checkout-summary__title {
+  margin-bottom: 1.2rem;
+}
+
+.checkout-summary__items {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0 0 1rem;
+  border-bottom: 1px solid #dfdbd3;
+  list-style: none;
+}
+
+.checkout-summary__item {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.82rem;
+}
+
+.checkout-summary__item img {
+  width: 56px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  background: #eeece8;
+}
+
+.checkout-summary__item div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.checkout-summary__item strong {
+  font-weight: 500;
+}
+
+.checkout-summary__item span {
+  color: #77736c;
+}
+
+.checkout-summary__total {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+.checkout-summary__note {
+  margin: 0.75rem 0 0;
+  color: #77736c;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.checkout-review {
+  display: grid;
+  gap: 1rem;
+}
+
+.checkout-review__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.checkout-review__edit,
+.checkout__back-link {
+  color: #514b42;
+  font: inherit;
+}
+
+.checkout-review__edit {
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: none;
+  cursor: pointer;
+}
+
+.checkout-review__address {
+  display: grid;
+  gap: 0.35rem;
+  color: #625e57;
+  font-size: 0.95rem;
+  font-style: normal;
+  line-height: 1.5;
+}
+
+.checkout-review__address strong {
+  color: #211f1b;
+}
+
+.checkout-review__notice {
+  margin-top: 0.5rem;
+  padding: 1rem;
+  background: #f7f5f1;
+  line-height: 1.5;
+}
+
+.checkout-review__notice p {
+  margin: 0.4rem 0 0;
+  color: #77736c;
+  font-size: 0.9rem;
+}
+
+.checkout__back-link {
+  width: fit-content;
+}
+
+@media (max-width: 760px) {
+  .checkout__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-summary {
+    grid-row: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .checkout {
+    width: min(100% - 1.25rem, 1200px);
+  }
+
+  .checkout-form__row {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-summary {
+    padding: 1rem;
+  }
+}

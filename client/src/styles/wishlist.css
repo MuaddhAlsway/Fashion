@@ -1,0 +1,40 @@
+.wishlist-sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.favorite-button { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; min-width: 44px; min-height: 44px; padding: 0.6rem; border: 1px solid #d8cec1; border-radius: 50%; background: #fffaf2; color: #484037; font: inherit; cursor: pointer; }
+.favorite-button svg { width: 20px; height: 20px; stroke-width: 1.6; }
+.favorite-button[aria-pressed='true'] { color: #80674f; }
+.favorite-button:hover { background: #eee5d8; border-color: #80674f; }
+.favorite-button:focus-visible { outline: 2px solid #80674f; outline-offset: 4px; }
+.marketplace-product, .product-card { position: relative; }
+.favorite-button--overlay { position: absolute; z-index: 2; top: 0.65rem; right: 0.65rem; }
+.favorite-button--label { gap: 0.5rem; border-radius: 3px; padding-inline: 0.75rem; font-size: 0.72rem; }
+.product-detail__brand-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem 1rem; margin-bottom: 0.75rem; }
+.product-detail__brand-row .product-detail__brand { margin: 0; }
+
+.wishlist-page { width: 100%; min-width: 0; padding: 1.5rem clamp(1rem, 4vw, 4rem) clamp(3rem, 6vw, 6rem); color: #35312c; background: #faf7f1; font-family: 'Outfit', Arial, sans-serif; }
+.wishlist-page__header { display: flex; align-items: end; justify-content: space-between; flex-wrap: wrap; gap: 1.25rem; padding-bottom: 2rem; border-bottom: 1px solid #d8cec1; margin-bottom: 2rem; }
+.wishlist-page__eyebrow { margin: 0 0 1.25rem; color: #80674f; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.wishlist-page h1 { margin: 0; font-family: 'Prata', Georgia, serif; font-size: clamp(2.8rem, 6vw, 6rem); font-weight: 400; line-height: 1.15; letter-spacing: -0.05em; }
+.wishlist-page h1 em { color: #80674f; font-weight: 400; }
+.wishlist-page__header > div > p:last-child { margin: 1rem 0 0; color: #665e54; font-size: 0.95rem; line-height: 1.7; }
+.wishlist-page__count { margin: 0; color: #65594c; font-size: 0.8rem; }
+.wishlist-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem 1.25rem; }
+.wishlist-card { min-width: 0; }
+.wishlist-card__product { display: block; color: inherit; text-decoration: none; }
+.wishlist-card__visual { aspect-ratio: 3 / 4; overflow: hidden; background: #eee5d8; }
+.wishlist-card__visual img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.wishlist-card__brand { margin: 1rem 0 0.5rem; color: #80674f; font-size: 0.62rem; letter-spacing: 0.09em; }
+.wishlist-card h2 { margin: 0; font-size: 1rem; font-weight: 500; line-height: 1.5; }
+.wishlist-card__price { margin: 0.6rem 0; font-size: 0.9rem; }
+.wishlist-card__remove { display: inline-flex; align-items: center; min-height: 44px; gap: 1rem; padding: 0; border: 0; border-bottom: 1px solid #bcb0a0; background: transparent; color: #65594c; font: inherit; font-size: 0.75rem; cursor: pointer; }
+.wishlist-card__remove:hover { color: #35312c; border-color: #35312c; }
+.wishlist-page :is(a, button):focus-visible, .wishlist-page h1:focus { outline: 2px solid #80674f; outline-offset: 5px; }
+.wishlist-empty { display: grid; justify-items: center; padding: clamp(2.5rem, 6vw, 5rem) 0; text-align: center; }
+.wishlist-empty > svg { width: 40px; height: 40px; margin-bottom: 1.5rem; color: #80674f; stroke-width: 1; }
+.wishlist-empty h2 { max-width: 24ch; margin: 0; font-family: 'Prata', Georgia, serif; font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight: 400; line-height: 1.3; }
+.wishlist-empty p { max-width: 46ch; margin: 1.25rem 0 1.75rem; color: #665e54; font-size: 0.95rem; line-height: 1.8; }
+.wishlist-empty a { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; gap: 1.5rem; padding: 0.8rem 1.25rem; background: #484037; color: #fffaf2; font-size: 0.75rem; text-decoration: none; }
+.wishlist-empty a:hover { background: #35312c; }
+.wishlist-page__notice { padding: 1rem; border-left: 3px solid #80674f; background: #eee5d8; color: #65594c; font-size: 0.8rem; line-height: 1.7; }
+@media (max-width: 1000px) { .wishlist-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 760px) { .wishlist-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 1rem; } }
+@media (max-width: 380px) { .wishlist-grid { gap: 1.5rem 0.75rem; } .wishlist-card h2 { font-size: 0.9rem; } }

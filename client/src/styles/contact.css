@@ -1,0 +1,52 @@
+.contact-page {
+  width: 100%;
+  min-width: 0;
+  padding: clamp(1.5rem, 3vw, 3rem) clamp(1rem, 4vw, 4rem) clamp(3rem, 6vw, 6rem);
+  background: #faf7f1;
+  color: #35312c;
+  font-family: 'Outfit', Arial, sans-serif;
+}
+.contact-page__header { padding-bottom: clamp(2rem, 4vw, 4rem); border-bottom: 1px solid #d8cec1; }
+.contact-page__eyebrow { margin: 0 0 1.5rem; color: #80674f; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase; }
+.contact-page__header h1 { margin: 0; font-family: 'Prata', Georgia, serif; font-size: clamp(3.5rem, 9vw, 9rem); font-weight: 400; letter-spacing: -0.065em; line-height: 1.1; }
+.contact-page__header h1 em { color: #80674f; font-weight: 400; }
+.contact-page__header > p:last-child { max-width: 44ch; margin: 1.5rem 0 0 auto; color: #665e54; font-size: clamp(0.95rem, 1.25vw, 1.15rem); line-height: 1.7; }
+.contact-page__layout { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(2rem, 7vw, 7rem); padding-top: clamp(2rem, 4vw, 4rem); }
+.contact-page__notes, .contact-page__form-panel { min-width: 0; }
+.contact-page__index { display: block; margin: 0 0 1.25rem; color: #80674f; font-size: 0.62rem; letter-spacing: 0.12em; }
+.contact-page h2 { margin: 0 0 1.25rem; font-family: 'Prata', Georgia, serif; font-size: clamp(1.7rem, 2.6vw, 2.6rem); font-weight: 400; line-height: 1.2; letter-spacing: -0.035em; }
+.contact-page__notes > p:not(.contact-page__demo-note) { max-width: 36ch; color: #665e54; font-size: 0.95rem; line-height: 1.75; }
+.contact-page__details { margin: 2rem 0 1rem; }
+.contact-page__details > div { margin-bottom: 1.5rem; }
+.contact-page__details dt { margin-bottom: 0.5rem; color: #65594c; font-size: 0.7rem; font-weight: 500; }
+.contact-page__details dd { margin: 0; max-width: 40ch; font-size: 0.9rem; line-height: 1.7; overflow-wrap: anywhere; }
+.contact-page__demo-note, .contact-page__form-note { max-width: 50ch; color: #665e54; font-size: 0.75rem; line-height: 1.6; }
+.contact-page__quick-links { display: grid; justify-items: start; gap: 0.25rem; margin-top: 1rem; }
+.contact-page__quick-links a { display: inline-flex; min-height: 44px; align-items: center; gap: 1rem; color: inherit; font-size: 0.78rem; text-decoration: underline; text-underline-offset: 4px; }
+.contact-page__quick-links a:hover { color: #80674f; }
+.contact-form { display: grid; gap: 1.5rem; }
+.contact-page__form-note { margin: 0; }
+.contact-form__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+.contact-field { display: grid; align-content: start; min-width: 0; gap: 0.6rem; }
+.contact-field label { font-size: 0.8rem; font-weight: 500; }
+.contact-field input, .contact-field textarea { box-sizing: border-box; width: 100%; min-width: 0; min-height: 48px; padding: 0.8rem 0.9rem; border: 1px solid #bcb0a0; border-radius: 0; background: #fffaf2; color: #35312c; font: inherit; font-size: 1rem; }
+.contact-field textarea { resize: vertical; line-height: 1.6; }
+.contact-field [aria-invalid='true'] { border-color: #933b2c; }
+.contact-field .contact-field__error { margin: 0; color: #933b2c; font-size: 0.75rem; line-height: 1.5; }
+.contact-page__button { display: inline-flex; align-items: center; justify-content: space-between; gap: 2rem; justify-self: start; max-width: 100%; min-height: 48px; padding: 0.85rem 1.25rem; border: 1px solid #484037; background: #484037; color: #fffaf2; font: inherit; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; }
+.contact-page__button:hover { background: #35312c; border-color: #35312c; }
+.contact-page input:focus-visible, .contact-page textarea:focus-visible, .contact-page button:focus-visible, .contact-page a:focus-visible, .contact-page__confirmation:focus { outline: 2px solid #80674f; outline-offset: 4px; }
+.contact-page__confirmation { padding: clamp(1.5rem, 3vw, 2.5rem); background: #eee5d8; overflow-wrap: anywhere; }
+.contact-page__confirmation > span { display: block; margin-bottom: 1.25rem; color: #80674f; font-size: 2rem; }
+.contact-page__confirmation h3 { margin: 0 0 1rem; font-family: 'Prata', Georgia, serif; font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 400; line-height: 1.25; }
+.contact-page__confirmation p { color: #665e54; font-size: 0.9rem; line-height: 1.75; }
+.contact-page__confirmation button { margin-top: 1rem; }
+
+@media (max-width: 760px) {
+  .contact-page__layout { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+  .contact-page__header > p:last-child { margin-left: 0; }
+  .contact-page__notes { padding-bottom: 1.5rem; border-bottom: 1px solid #d8cec1; }
+}
+@media (max-width: 480px) {
+  .contact-form__row { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+}

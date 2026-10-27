@@ -1,0 +1,252 @@
+#root > main.payment-page {
+  display: block;
+}
+
+.payment-page {
+  box-sizing: border-box;
+  width: min(100% - 2rem, 1200px);
+  margin-inline: auto;
+  padding-block: clamp(2rem, 5vw, 4rem);
+  color: #211f1b;
+  font-family: 'Outfit', Arial, sans-serif;
+}
+
+.payment-page__header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e7e3dc;
+}
+
+.payment-page__eyebrow {
+  margin: 0 0 0.6rem;
+  color: #81745f;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+}
+
+.payment-page__title {
+  margin: 0;
+  font-family: 'Prata', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 400;
+}
+
+.payment-page__description {
+  max-width: 620px;
+  margin: 0.75rem 0 0;
+  color: #77736c;
+  line-height: 1.6;
+}
+
+.payment-page__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 380px);
+  align-items: start;
+  gap: clamp(2rem, 6vw, 5rem);
+}
+
+.payment-panel,
+.payment-summary {
+  min-width: 0;
+}
+
+.payment-panel h2,
+.payment-summary h2 {
+  margin: 0 0 1.25rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.payment-options {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.payment-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 1rem;
+  border: 1px solid #d9d5ce;
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+.payment-option:has(input:checked) {
+  border-color: #211f1b;
+  background: #f7f5f1;
+}
+
+.payment-option input {
+  margin-top: 0.2rem;
+  accent-color: #211f1b;
+}
+
+.payment-option__content {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.payment-option__content strong {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.payment-option__content span {
+  color: #77736c;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.payment-panel__notice {
+  min-height: 1.5rem;
+  margin: 1rem 0;
+  color: #77736c;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.payment-page__button {
+  display: inline-flex;
+  width: 100%;
+  min-height: 3.2rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1rem;
+  border: 1px solid #211f1b;
+  background: #211f1b;
+  color: #fff;
+  font: inherit;
+}
+
+.payment-page__button:disabled {
+  background: #77736c;
+  border-color: #77736c;
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+.payment-panel__helper {
+  margin: 0.75rem 0 1rem;
+  color: #77736c;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.payment-page__back,
+.payment-page__link {
+  color: #514b42;
+  font-size: 0.9rem;
+}
+
+.payment-summary {
+  padding: 1.4rem;
+  background: #f7f5f1;
+}
+
+.payment-summary__items {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0 0 1rem;
+  border-bottom: 1px solid #dfdbd3;
+  list-style: none;
+}
+
+.payment-summary__item {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.82rem;
+}
+
+.payment-summary__item img {
+  width: 56px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  background: #eeece8;
+}
+
+.payment-summary__item div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.payment-summary__item strong {
+  font-weight: 500;
+}
+
+.payment-summary__item span {
+  color: #77736c;
+}
+
+.payment-summary__total {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+.payment-summary__note {
+  margin: 0.75rem 0 0;
+  color: #77736c;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+@media (max-width: 760px) {
+  .payment-page__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-summary {
+    grid-row: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-page {
+    width: min(100% - 1.25rem, 1200px);
+  }
+
+  .payment-summary {
+    padding: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .payment-option {
+    transition: none;
+  }
+}
+.payment-delivery {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e7e3dc;
+}
+.payment-delivery__address {
+  display: grid;
+  gap: 0.35rem;
+  color: #625e57;
+  font-size: 0.9rem;
+  font-style: normal;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.payment-delivery__address strong { color: #211f1b; }
+.payment-delivery__missing { margin: 0; color: #625e57; line-height: 1.5; }
