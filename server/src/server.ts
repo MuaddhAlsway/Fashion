@@ -11,18 +11,19 @@ import type { Environment } from './config/env.js'
 let config: Environment | undefined
 let configured = false
 let app: ReturnType<typeof createApp> | ReturnType<typeof express>
-let configError = 'Configuration error'
+let startupError: string | undefined
 
 try {
   config = loadEnvironment()
   app = createApp(config)
   configured = true
 } catch (error) {
-  logger.error('startup_failed', { stage: 'configuration' })
-  configError = error instanceof Error ? error.message : 'Configuration error'
+  const message = error instanceof Error ? error.message : 'Configuration error'
+  startupError = message
+  logger.error('startup_failed', { stage: 'configuration', message })
   app = express()
   app.use((_req, res) => {
-    res.status(500).json({ status: 'error', service: 'fashion-api', message: configError })
+    res.status(500).json({ status: 'error', service: 'fashion-api', message })
   })
 }
 
@@ -51,14 +52,17 @@ async function start() {
   try {
     await connectDatabase(config)
     logger.info('database_connected')
+    startupError = undefined
   } catch (error) {
-    logger.error('startup_failed', { ...mongoDiagnostic(error), startupStage })
+    const diag = mongoDiagnostic(error)
+    startupError = `${diag.code ?? 'ERROR'}: ${diag.hint ?? 'connection failed'}`
+    logger.error('startup_failed', { ...diag, startupStage })
     void shutdown(true)
     return
   }
   if (stopping) { await disconnectDatabase(); return }
   startupStage = 'http'
-  if (config!.emailEnabled) stopReceipts = startReceiptWorker(config!)
+  if (config.emailEnabled) stopReceipts = startReceiptWorker(config)
   server = (app as ReturnType<typeof createApp>).listen(config.port, () => logger.info('server_listening', { port: config.port, environment: config.nodeEnv }))
   server.on('error', () => { logger.error('http_server_failed'); void shutdown(true) })
 }
@@ -66,8 +70,12 @@ async function start() {
 if (configured && config && process.env.VERCEL) {
   startupStage = 'connect'
   connectDatabase(config)
-    .then(() => logger.info('database_connected'))
-    .catch(error => logger.error('startup_failed', { ...mongoDiagnostic(error), startupStage }))
+    .then(() => { logger.info('database_connected'); startupError = undefined })
+    .catch(error => {
+      const diag = mongoDiagnostic(error)
+      startupError = `${diag.code ?? 'ERROR'}: ${diag.hint ?? 'connection failed'}`
+      logger.error('startup_failed', { ...diag, startupStage })
+    })
 }
 
 if (configured && !process.env.VERCEL) {
@@ -77,5 +85,7 @@ if (configured && !process.env.VERCEL) {
   process.once('unhandledRejection', () => { logger.error('unhandled_rejection'); void shutdown(true) })
   void start()
 }
+
+;(globalThis as any).__startupError = () => startupError
 
 export default app

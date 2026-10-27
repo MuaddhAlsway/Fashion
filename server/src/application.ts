@@ -35,7 +35,8 @@ export function createApp(config: Environment, options: { databaseReady?: () => 
   app.get('/api/health', async (_req, res) => {
     const connected = ready() && await ping()
     res.setHeader('Cache-Control', 'no-store')
-    res.status(connected ? 200 : 503).json({ status: connected ? 'ok' : 'unavailable', service: 'fashion-api', database: connected ? 'connected' : 'disconnected' })
+    const startupError = (globalThis as any).__startupError?.()
+    res.status(connected ? 200 : 503).json({ status: connected ? 'ok' : 'unavailable', service: 'fashion-api', database: connected ? 'connected' : 'disconnected', ...(startupError ? { error: startupError } : {}) })
   })
   app.use('/api', (_req, _res, next) => { if (!ready()) throw new HttpError(503, 'DATABASE_UNAVAILABLE', 'Database is not available'); next() })
   app.use('/api/webhooks', webhookRoutes(config))
