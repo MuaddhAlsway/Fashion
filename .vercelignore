@@ -1,0 +1,2 @@
+# Ignore client app files in backend deployments
+client/
