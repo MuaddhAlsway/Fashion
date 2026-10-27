@@ -21,7 +21,7 @@ function JournalPage() {
       </header>
 
       <section className="journal-lead" aria-labelledby="journal-lead-title">
-        <div className="journal-lead__visual"><img src={leadStory.image} alt={leadStory.imageAlt} style={{ objectPosition: leadStory.imagePosition }} /></div>
+        <div className="journal-lead__visual"><img loading="lazy" decoding="async" src={leadStory.image} alt={leadStory.imageAlt} style={{ objectPosition: leadStory.imagePosition }} /></div>
         <div className="journal-lead__content">
           <p className="journal-kicker">01 / The cover story</p>
           <div className="journal-card__meta"><span>{leadStory.category}</span><time dateTime={leadStory.date}>{leadStory.dateLabel}</time></div>

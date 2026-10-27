@@ -17,7 +17,7 @@ function Hero() {
         </div>
       </div>
       <div className="hero__visual">
-        <img className="hero__image" src={content.image} alt={content.imageAlt} />
+        <img loading="lazy" decoding="async" className="hero__image" src={content.image} alt={content.imageAlt} />
         <div className="hero__price-card"><span>{content.priceLabel}</span><strong>{content.priceText}</strong></div>
       </div>
     </section>

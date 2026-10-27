@@ -153,7 +153,7 @@ function DemoPaymentPage() {
           <ul className="payment-summary__items">
             {items.map((item) => (
               <li className="payment-summary__item" key={`${item.id}-${item.size}`}>
-                <img src={item.image} alt={item.imageAlt} />
+                <img loading="lazy" decoding="async" src={item.image} alt={item.imageAlt} />
                 <div>
                   <strong>{item.name}</strong>
                   <span>Size {item.size} · Qty {item.quantity}</span>

@@ -25,7 +25,7 @@ function JournalStoryPage() {
           <h1>{story.title}</h1>
           <p>{story.excerpt}</p>
         </header>
-        <img className="journal-article__image" src={story.image} alt={story.imageAlt} style={{ objectPosition: story.imagePosition }} />
+        <img loading="lazy" decoding="async" className="journal-article__image" src={story.image} alt={story.imageAlt} style={{ objectPosition: story.imagePosition }} />
         <div className="journal-article__body">
           {story.sections.map((section) => <section key={section.heading}><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</section>)}
           <Link className="journal-link" to="/marketplace">Explore the collection <span aria-hidden="true">↗</span></Link>

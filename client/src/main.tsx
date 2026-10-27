@@ -1,6 +1,15 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
+// Mark lazy images as loaded for fade-in effect
+if (typeof document !== 'undefined') {
+  document.addEventListener('load', (event) => {
+    const target = event.target
+    if (target instanceof HTMLImageElement && target.loading === 'lazy') {
+      target.classList.add('is-loaded')
+    }
+  }, true)
+}
 import App from './App'
 import { CartProvider } from './context/CartContext'
 import { DemoAuthProvider } from './context/DemoAuthContext'

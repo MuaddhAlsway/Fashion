@@ -75,7 +75,7 @@ if (!product) {
       <div className="product-detail__layout">
         <div className="product-detail__gallery">
           <div className="product-detail__main-image">
-            <img src={activeImage.src} alt={activeImage.alt} />
+            <img loading="lazy" decoding="async" src={activeImage.src} alt={activeImage.alt} />
           </div>
 
           <div className="product-detail__thumbnails" aria-label="Product views">
@@ -92,7 +92,7 @@ if (!product) {
                 aria-pressed={selectedImageIndex === index}
                 onClick={() => setSelectedImageIndex(index)}
               >
-                <img src={image.src} alt="" />
+                <img loading="lazy" decoding="async" src={image.src} alt="" />
 
               </button>
             ))}

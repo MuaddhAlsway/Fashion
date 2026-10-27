@@ -111,7 +111,7 @@ function AboutHero() {
                 if (event.target === event.currentTarget && event.animationName === 'about-page-flip') finishTransition()
               }}
             >
-              <img
+              <img loading="lazy" decoding="async"
                 className="about-hero__image"
                 src={slides[outgoingIndex].src}
                 alt=""
@@ -123,7 +123,7 @@ function AboutHero() {
             key={activeIndex}
             className={`about-hero__page${outgoingIndex !== null && !reducedMotion ? ' about-hero__page--incoming' : ''}`}
           >
-            <img
+            <img loading="lazy" decoding="async"
               className="about-hero__image"
               id="about-hero-slide"
               src={activeSlide.src}

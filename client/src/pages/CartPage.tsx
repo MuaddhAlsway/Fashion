@@ -31,7 +31,7 @@ function CartPage() {
                 className="cart-item"
                 key={`${item.id}-${item.size}`}
               >
-                <img
+                <img loading="lazy" decoding="async"
                   className="cart-item__image"
                   src={item.image}
                   alt={item.imageAlt}

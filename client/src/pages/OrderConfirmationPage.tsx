@@ -89,7 +89,7 @@ function DemoOrderConfirmationPage() {
                   className="confirmation-item"
                   key={`${item.id}-${item.size}`}
                 >
-                  <img src={item.image} alt={item.imageAlt} />
+                  <img loading="lazy" decoding="async" src={item.image} alt={item.imageAlt} />
                   <div className="confirmation-item__details">
                     <strong>{item.name}</strong>
                     <span>Size {item.size} · Qty {item.quantity}</span>
