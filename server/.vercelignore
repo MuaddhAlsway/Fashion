@@ -8,3 +8,5 @@ node_modules/
 dist/
 coverage/
 *.log
+# Prevent Vercel from type-checking the client app
+../client/
