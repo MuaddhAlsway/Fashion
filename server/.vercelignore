@@ -1,0 +1,10 @@
+# Vercel deployment ignores (server project)
+.env
+.env.*
+!.env.example
+tests/
+docs/
+node_modules/
+dist/
+coverage/
+*.log
