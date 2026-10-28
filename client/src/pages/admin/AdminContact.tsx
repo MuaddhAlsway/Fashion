@@ -44,7 +44,16 @@ function ConnectedContactInbox() {
       setToast('Reply sent successfully.')
       setReplyTo(null)
     } catch (err) {
-      setToast(err instanceof Error ? err.message : 'Reply failed.')
+      const msg = err instanceof Error ? err.message : 'Reply failed.'
+      if (msg.includes('EMAIL_DISABLED')) {
+        const subject = encodeURIComponent('Re: Your message to FASHION')
+        const body = encodeURIComponent(replyBody)
+        window.location.href = `mailto:${replyTo.email}?subject=${subject}&body=${body}`
+        setToast('Email provider not configured; opened your email client instead.')
+        setReplyTo(null)
+      } else {
+        setToast(msg)
+      }
     } finally {
       setSending(false)
     }
