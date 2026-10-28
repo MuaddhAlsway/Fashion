@@ -4,7 +4,7 @@ import { Resend } from 'resend'
 import { Router } from 'express'
 import mongoose, { type Model } from 'mongoose'
 import { z } from 'zod'
-import { Product, Category, Post, SiteBlock, LegalPage, Subscriber, Contact, Activity, Order } from '../models/index.js'
+import { Product, Category, Post, SiteBlock, LegalPage, Subscriber, Contact, Activity, Order, Feedback } from '../models/index.js'
 import { productInput, categoryInput, postInput, websiteInput, legalInput, pagination, parse, sizeLabel } from '../lib/validation.js'
 import { productDto, postDto, dto, pathValue, documentId, version, pageResult, escapeRegex } from '../lib/api.js'
 import { HttpError } from '../lib/http-error.js'
@@ -76,6 +76,8 @@ export function adminRoutes(config: Environment) {
   router.get('/orders', async (req, res) => { const q = parse(pagination, req.query); pageResult(res, (await Order.find().sort({ createdAt: -1 }).skip((q.page - 1) * q.limit).limit(q.limit).lean()).map(dto), await Order.countDocuments(), q.page, q.limit) })
   router.put('/orders/:id/status', async (req, res) => { const input = parse(z.object({ status: z.enum(['fulfilled', 'cancelled']) }).strict(), req.body), id = documentId(pathValue(req, 'id')); await mongoose.connection.transaction(async session => { const order = await Order.findById(id).session(session); if (!order) throw new HttpError(404, 'NOT_FOUND', 'Order not found'); if (input.status === 'fulfilled') { if (order.status !== 'paid') throw new HttpError(409, 'INVALID_TRANSITION', 'Only paid orders can be fulfilled'); order.status = 'fulfilled'; await order.save({ session }) } else { if (order.stripeSessionId || order.paymentStatus === 'pending') throw new HttpError(409, 'PAYMENT_IN_PROGRESS', 'Wait for verified payment session expiration'); await releaseReservation(order, session) } await audit(owner(res), `order.${input.status}`, id, session) }); res.json({ data: { status: input.status } }) })
   router.get('/activity', async (req, res) => { const q = parse(pagination, req.query); pageResult(res, (await Activity.find().sort({ createdAt: -1, _id: 1 }).skip((q.page - 1) * q.limit).limit(q.limit).lean()).map(dto), await Activity.countDocuments(), q.page, q.limit) })
+  router.get('/feedback', async (req, res) => { const q = parse(pagination, req.query); pageResult(res, (await Feedback.find().sort({ createdAt: -1 }).skip((q.page - 1) * q.limit).limit(q.limit).lean()).map(dto), await Feedback.countDocuments(), q.page, q.limit) })
+  router.delete('/feedback/:id', async (req, res) => { const id = documentId(pathValue(req, 'id')); await mongoose.connection.transaction(async session => { const removed = await Feedback.findByIdAndDelete(id, { session }); if (!removed) throw new HttpError(404, 'NOT_FOUND', 'Feedback not found'); await audit(owner(res), 'feedback.delete', id, session) }); res.status(204).end() })
   router.get('/dashboard', async (_req, res) => { const [products, categories, journal, activity] = await Promise.all([Product.countDocuments({ deletedAt: null }), Category.countDocuments({ deletedAt: null }), Post.countDocuments({ deletedAt: null }), Activity.countDocuments()]); res.json({ data: { products, categories, journal, activity } }) })
   return router
 }

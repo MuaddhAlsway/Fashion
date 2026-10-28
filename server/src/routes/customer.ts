@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import mongoose from 'mongoose'
 import { z } from 'zod'
-import { Cart, Wishlist, Product, Address, Order, Migration } from '../models/index.js'
+import { Cart, Wishlist, Product, Address, Order, Migration, Feedback } from '../models/index.js'
 import { owner, type Identity } from '../middleware/auth.js'
 import { lineInput, deliveryInput, parse, pagination, slug, text } from '../lib/validation.js'
 import { dto, productDto, pathValue, documentId, pageResult } from '../lib/api.js'
@@ -44,6 +44,14 @@ export function customerRoutes(config: Environment) {
   router.get('/orders', async (req, res) => { const q = parse(pagination, req.query); const filter = { ownerId: owner(res) }; pageResult(res, (await Order.find(filter).sort({ createdAt: -1, _id: 1 }).skip((q.page - 1) * q.limit).limit(q.limit).lean()).map(dto), await Order.countDocuments(filter), q.page, q.limit) })
   router.get('/orders/:id', async (req, res) => { const order = await Order.findOne({ _id: documentId(pathValue(req, 'id')), ownerId: owner(res) }).lean(); if (!order) throw new HttpError(404, 'NOT_FOUND', 'Order not found'); res.json({ data: dto(order) }) })
   router.post('/orders/:id/cancel', async (req, res) => { await mongoose.connection.transaction(async session => { const order = await Order.findOne({ _id: documentId(pathValue(req, 'id')), ownerId: owner(res) }).session(session); if (!order) throw new HttpError(404, 'NOT_FOUND', 'Order not found'); if (order.stripeSessionId || order.paymentStatus === 'pending') throw new HttpError(409, 'PAYMENT_IN_PROGRESS', 'Await verified session expiration'); await releaseReservation(order, session) }); res.status(204).end() })
+  router.post('/feedback', async (req, res) => {
+    const input = parse(z.object({ productId: z.string().trim().min(1), rating: z.number().int().min(1).max(5), comment: z.string().trim().min(1).max(1000) }).strict(), req.body)
+    if (!await Product.exists({ id: input.productId, deletedAt: null })) throw new HttpError(404, 'NOT_FOUND', 'Product not found')
+    const identity = res.locals.identity as Identity
+    const customer = res.locals.customer as { name?: string } | undefined
+    const record = await Feedback.create({ productId: input.productId, clerkId: identity.clerkId, name: customer?.name || identity.email || 'Customer', rating: input.rating, comment: input.comment })
+    res.status(201).json({ data: dto(record) })
+  })
   router.post('/shopping-state/import', async (req, res) => {
     const input = parse(z.object({ items: z.array(lineInput).max(100), productIds: z.array(slug).max(1000) }).strict(), req.body)
     const ownerId = owner(res), key = `guest-import:${ownerId}:${idempotencyKey(req.get('Idempotency-Key'))}`
