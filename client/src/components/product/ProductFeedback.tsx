@@ -4,7 +4,7 @@ import { apiEnabled } from '../../api/config'
 import { useUser } from '@clerk/react'
 import '../../styles/product-feedback.css'
 
-type Feedback = { recordId: string; name: string; rating: number; comment: string; createdAt: string }
+type Feedback = { recordId: string; name: string; rating: number; comment: string; image?: string; createdAt: string }
 
 export default function ProductFeedback({ productId }: { productId: string }) {
   const api = useApi()
@@ -13,6 +13,8 @@ export default function ProductFeedback({ productId }: { productId: string }) {
   const [loading, setLoading] = useState(true)
   const [rating, setRating] = useState(5)
   const [comment, setComment] = useState('')
+  const [image, setImage] = useState('')
+  const [assets, setAssets] = useState<string[]>([])
   const [submitting, setSubmitting] = useState(false)
   const [message, setMessage] = useState('')
 
@@ -21,6 +23,9 @@ export default function ProductFeedback({ productId }: { productId: string }) {
     void api<{ data: Feedback[] }>(`/api/products/${productId}/feedback`, {}, false).then((result) => {
       if (active) { setItems(result.data); setLoading(false) }
     }).catch(() => { if (active) setLoading(false) })
+    void api<{ data: string[] }>('/api/assets', {}, false).then((result) => {
+      if (active) setAssets(result.data)
+    }).catch(() => {})
     return () => { active = false }
   }, [api, productId])
 
@@ -30,9 +35,10 @@ export default function ProductFeedback({ productId }: { productId: string }) {
     setSubmitting(true)
     setMessage('')
     try {
-      const result = await api<{ data: Feedback }>('/api/me/feedback', { method: 'POST', body: JSON.stringify({ productId, rating, comment }) })
+      const result = await api<{ data: Feedback }>('/api/me/feedback', { method: 'POST', body: JSON.stringify({ productId, rating, comment, image }) })
       setItems((prev) => [result.data, ...prev])
       setComment('')
+      setImage('')
       setRating(5)
       setMessage('Thank you for your feedback.')
     } catch (err) {
@@ -73,6 +79,7 @@ export default function ProductFeedback({ productId }: { productId: string }) {
               <div className="product-feedback__stars" aria-label={`${item.rating} out of 5 stars`}>
                 {'★'.repeat(item.rating)}{'☆'.repeat(5 - item.rating)}
               </div>
+              {item.image && <img src={item.image} alt="Feedback attachment" loading="lazy" decoding="async" className="product-feedback__image" />}
               <p>{item.comment}</p>
             </article>
           ))}
@@ -94,6 +101,17 @@ export default function ProductFeedback({ productId }: { productId: string }) {
             Comment
             <textarea value={comment} onChange={(e) => setComment(e.target.value)} required rows={4} />
           </label>
+          {assets.length > 0 && (
+            <label>
+              Attach an image (optional)
+              <select value={image} onChange={(e) => setImage(e.target.value)}>
+                <option value="">No image</option>
+                {assets.map((asset) => (
+                  <option key={asset} value={asset}>{asset}</option>
+                ))}
+              </select>
+            </label>
+          )}
           <button type="submit" disabled={submitting || !comment.trim()}>
             {submitting ? 'Submitting…' : 'Submit feedback'}
           </button>
@@ -109,3 +127,4 @@ export default function ProductFeedback({ productId }: { productId: string }) {
     </section>
   )
 }
+

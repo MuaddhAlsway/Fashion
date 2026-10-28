@@ -4,10 +4,10 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const rateLimit = require('express-rate-limit') as any
 import { Product, Category, Post, SiteBlock, LegalPage, Subscriber, Contact, Feedback } from '../models/index.js'
+import { approvedAssets, assetsDirectory } from '../lib/assets.js'
 import { pagination, newsletterInput, contactInput, parse } from '../lib/validation.js'
 import { dto, productDto, postDto, pathValue, pageResult, escapeRegex } from '../lib/api.js'
 import { HttpError } from '../lib/http-error.js'
-import { approvedAssets, assetsDirectory } from '../lib/assets.js'
 export function publicRoutes() {
   const router = Router()
   router.get('/assets/:name', (req, res) => { const name = pathValue(req, 'name'); if (!approvedAssets().includes(name)) throw new HttpError(404, 'NOT_FOUND', 'Image not found'); res.sendFile(name, { root: assetsDirectory }) })
@@ -25,6 +25,7 @@ export function publicRoutes() {
   })
   router.get('/products/:id', async (req, res) => { const item = await Product.findOne({ id: pathValue(req, 'id'), deletedAt: null }).lean(); if (!item) throw new HttpError(404, 'NOT_FOUND', 'Product not found'); res.json({ data: productDto(item) }) })
   router.get('/products/:id/feedback', async (req, res) => { const items = await Feedback.find({ productId: pathValue(req, 'id') }).sort({ createdAt: -1 }).lean(); res.json({ data: items.map(dto) }) })
+  router.get('/assets', (_req, res) => { res.json({ data: approvedAssets() }) })
   router.get('/categories', async (req, res) => { const q = parse(pagination, req.query); const filter = { deletedAt: null }; const [items, total] = await Promise.all([Category.find(filter).sort({ createdAt: 1, id: 1 }).skip((q.page - 1) * q.limit).limit(q.limit).lean(), Category.countDocuments(filter)]); pageResult(res, items.map(dto), total, q.page, q.limit) })
   router.get('/journal', async (req, res) => { const q = parse(pagination, req.query); const filter = { deletedAt: null, ...(q.category !== 'all' ? { category: q.category } : {}) }; const [items, total] = await Promise.all([Post.find(filter).sort({ date: -1, slug: 1 }).skip((q.page - 1) * q.limit).limit(q.limit).lean(), Post.countDocuments(filter)]); pageResult(res, items.map(postDto), total, q.page, q.limit) })
   router.get('/journal/:slug', async (req, res) => { const item = await Post.findOne({ slug: pathValue(req, 'slug'), deletedAt: null }).lean(); if (!item) throw new HttpError(404, 'NOT_FOUND', 'Story not found'); res.json({ data: postDto(item) }) })
