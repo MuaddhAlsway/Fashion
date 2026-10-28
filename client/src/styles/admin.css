@@ -111,3 +111,8 @@
 .admin-mailing-filters { margin-block: 1.5rem; }
 .admin-mailing-table caption { padding: 1rem; text-align: left; }
 .admin-mailing-table td:first-child { overflow-wrap: anywhere; max-width: 24rem; }
+
+/* Hide scrollbars in admin */
+.admin-shell, .admin-main, .admin-table-wrap, .admin-sidebar { scrollbar-width: none; -ms-overflow-style: none; }
+.admin-shell::-webkit-scrollbar, .admin-main::-webkit-scrollbar, .admin-table-wrap::-webkit-scrollbar, .admin-sidebar::-webkit-scrollbar { display: none; }
+
