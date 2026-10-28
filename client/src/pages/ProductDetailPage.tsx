@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router'
 import '../styles/product-detail.css'
 import { useCart } from '../context/CartContext'
+import ProductFeedback from '../components/product/ProductFeedback'
 import SizeGuide from '../components/product/SizeGuide'
 
 
@@ -195,34 +196,7 @@ if (!product) {
         </section>
       </div>
 
-      <section className="product-detail__reviews" id="customer-feedback" aria-labelledby="customer-feedback-title">
-        <div className="product-detail__reviews-heading">
-          <div>
-            <p className="product-detail__eyebrow">Customer feedback</p>
-            <h2 id="customer-feedback-title">What people are saying</h2>
-            <p className="product-detail__demo-note">Sample reviews for {product.name}.</p>
-          </div>
-          <div className="product-detail__review-summary">
-            <strong>{mockAverageRating.toFixed(1)} <span>/ 5</span></strong>
-            <span>Based on {mockReviews.length} sample reviews</span>
-          </div>
-        </div>
-        <div className="product-detail__review-list">
-          {mockReviews.map((review) => (
-            <article className="product-detail__review" key={review.id}>
-              <div className="product-detail__review-meta">
-                <strong>{review.name}</strong>
-                <time dateTime={review.date}>{new Date(`${review.date}T12:00:00`).toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
-              </div>
-              <div className="product-detail__review-stars" aria-label={`${review.rating} out of 5 stars`}>
-                <span aria-hidden="true">{'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}</span>
-              </div>
-              <h3>{review.title}</h3>
-              <p>{review.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      <ProductFeedback productId={product.id} />
     </main>
   )
 }
