@@ -312,6 +312,22 @@ Never promote without verification. Steps:
 - Roles are server-owned; client cannot escalate.
 - No public admin bootstrap endpoint.
 
+## 🔄 How It Flows
+
+1. **Visitor** opens the storefront (Vercel/Render).
+2. **Frontend** calls the backend REST API (`/api/products`, `/api/categories`, etc.).
+3. **Backend** verifies the request, queries MongoDB Atlas, and returns JSON.
+4. **Clerk** handles sign-in/sign-up and sends webhooks to `/api/webhooks/clerk`.
+5. **Backend** syncs Clerk user events to the `customers` collection (role defaults to `customer`).
+6. **Customer** checks out → order created on server → Stripe Checkout → webhook confirms payment.
+7. **Admin** manages catalog, content, orders, subscribers, and contact inbox via `/admin`.
+
 ## 📄 License
 
 Private project. All rights reserved.
+
+---
+
+## 👨‍💻 Developer
+
+**E.Muaddh ALsway** — Full Stack Developer
