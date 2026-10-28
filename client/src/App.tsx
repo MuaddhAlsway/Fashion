@@ -2,6 +2,7 @@ import { apiEnabled } from './api/config'
 import ApiAdminGuard from './api/ApiAdminGuard'
 import AdminMailingList from './pages/admin/AdminMailingList'
 import AdminContact from './pages/admin/AdminContact'
+import AdminFeedback from './pages/admin/AdminFeedback'
 import WishlistPage from './pages/WishlistPage'
 import AdminLayout from './pages/admin/AdminLayout'
 import AdminDashboard from './pages/admin/AdminDashboard'
@@ -52,6 +53,7 @@ function App() {
           <Route path="legal" element={<AdminLegal />} />
           <Route path="mailing-list" element={<AdminMailingList />} />
           <Route path="contact" element={<AdminContact />} />
+          <Route path="feedback" element={<AdminFeedback />} />
           <Route path="*" element={<AdminNotFound />} />
         </Route>
         <Route element={<StorefrontLayout />}>
