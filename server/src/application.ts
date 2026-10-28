@@ -46,7 +46,7 @@ export function createApp(config: Environment, options: { databaseReady?: () => 
   const auth = requireCustomer(options.authenticate ?? clerkAuthenticator(config))
   const privateLimit = rateLimit({ windowMs: 60000, limit: 120, standardHeaders: 'draft-8', legacyHeaders: false, message: { error: { code: 'RATE_LIMITED', message: 'Please try again later' } } })
   app.use('/api/me', privateLimit, auth, customerRoutes(config), paymentRoutes(config))
-  app.use('/api/admin', privateLimit, auth, requireAdmin, adminRoutes())
+  app.use('/api/admin', privateLimit, auth, requireAdmin, adminRoutes(config))
   app.use(notFound)
   app.use(errorHandler(log))
   return app

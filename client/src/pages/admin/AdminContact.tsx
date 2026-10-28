@@ -13,18 +13,16 @@ function ConnectedContactInbox() {
   const api = useApi()
   const [items, setItems] = useState<ContactSubmission[]>([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
   const [replyTo, setReplyTo] = useState<ContactSubmission | null>(null)
   const [replyBody, setReplyBody] = useState('')
+  const [sending, setSending] = useState(false)
+  const [toast, setToast] = useState('')
 
   const load = useCallback(async () => {
     setLoading(true)
-    setError('')
     try {
       const result = await api<{ data: ContactSubmission[] }>('/api/admin/contact-submissions')
       setItems(result.data)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Could not load contact submissions.')
     } finally {
       setLoading(false)
     }
@@ -37,12 +35,19 @@ function ConnectedContactInbox() {
     setReplyBody(`Hi ${item.name},\n\nThank you for contacting FASHION.\n\n`)
   }
 
-  function sendReply() {
+  async function sendReply() {
     if (!replyTo) return
-    const subject = encodeURIComponent('Re: Your message to FASHION')
-    const body = encodeURIComponent(replyBody)
-    window.location.href = `mailto:${replyTo.email}?subject=${subject}&body=${body}`
-    setReplyTo(null)
+    setSending(true)
+    setToast('')
+    try {
+      await api(`/api/admin/contact-submissions/${replyTo.recordId}/reply`, { method: 'POST', body: JSON.stringify({ message: replyBody }) })
+      setToast('Reply sent successfully.')
+      setReplyTo(null)
+    } catch (err) {
+      setToast(err instanceof Error ? err.message : 'Reply failed.')
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -55,7 +60,7 @@ function ConnectedContactInbox() {
         </div>
         <button type="button" disabled={loading} onClick={() => void load()}>Refresh</button>
       </header>
-      {error && <p className="admin-error" role="alert">{error}</p>}
+      {toast && <p className={toast.includes('success') ? 'admin-success' : 'admin-error'} role="status">{toast}</p>}
       {loading && <p role="status">Loading submissions…</p>}
       {!loading && !items.length && <p className="admin-empty">No contact submissions yet.</p>}
       {items.length > 0 && (
@@ -93,7 +98,7 @@ function ConnectedContactInbox() {
             <textarea value={replyBody} onChange={(event) => setReplyBody(event.target.value)} rows={6} style={{ width: '100%' }} />
           </label>
           <div className="admin-actions" style={{ marginTop: '0.75rem' }}>
-            <button type="button" onClick={sendReply}>Open email client to send</button>
+            <button type="button" disabled={sending} onClick={() => void sendReply()}>{sending ? 'Sending…' : 'Send reply'}</button>
             <button type="button" onClick={() => setReplyTo(null)}>Cancel</button>
           </div>
         </div>

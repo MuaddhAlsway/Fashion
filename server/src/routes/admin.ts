@@ -1,4 +1,6 @@
 import { normalizeSearch } from '../lib/search.js'
+import type { Environment } from '../config/env.js'
+import { Resend } from 'resend'
 import { Router } from 'express'
 import mongoose, { type Model } from 'mongoose'
 import { z } from 'zod'
@@ -10,7 +12,7 @@ import { assertAssets, approvedAssets } from '../lib/assets.js'
 import { audit } from '../services/audit.js'
 import { owner } from '../middleware/auth.js'
 import { releaseReservation } from '../services/orders.js'
-export function adminRoutes() {
+export function adminRoutes(config: Environment) {
   const router = Router()
   const resources = [
     { name: 'products', model: Product, schema: productInput, key: 'id', serialize: productDto },
@@ -59,6 +61,17 @@ export function adminRoutes() {
   router.get('/newsletter-subscribers', async (req, res) => { const q = parse(pagination, req.query); const filter = q.q ? { email: { $regex: escapeRegex(q.q), $options: 'i' } } : {}; const sort: Record<string, 1 | -1> = q.sort === 'email-asc' ? { email: 1 } : q.sort === 'email-desc' ? { email: -1 } : { subscribedAt: q.sort === 'oldest' ? 1 : -1, _id: 1 }; const [items, total, subscriberCount] = await Promise.all([Subscriber.find(filter).sort(sort).skip((q.page - 1) * q.limit).limit(q.limit).lean(), Subscriber.countDocuments(filter), Subscriber.countDocuments()]); res.json({ data: items.map(dto), subscriberCount, pagination: { total, page: q.page, limit: q.limit } }) })
   router.delete('/newsletter-subscribers/:id', async (req, res) => { const id = documentId(pathValue(req, 'id')); await mongoose.connection.transaction(async session => { const removed = await Subscriber.findByIdAndDelete(id, { session }); if (!removed) throw new HttpError(404, 'NOT_FOUND', 'Subscriber not found'); await audit(owner(res), 'subscriber.delete', id, session) }); res.status(204).end() })
   router.get('/contact-submissions', async (req, res) => { const q = parse(pagination, req.query); pageResult(res, (await Contact.find().sort({ createdAt: -1 }).skip((q.page - 1) * q.limit).limit(q.limit).lean()).map(dto), await Contact.countDocuments(), q.page, q.limit) })
+  router.post('/contact-submissions/:id/reply', async (req, res) => {
+    if (!config.emailEnabled || !config.resendApiKey || !config.emailFrom) throw new HttpError(503, 'EMAIL_DISABLED', 'Email is disabled until a verified sender is configured')
+    const id = documentId(pathValue(req, 'id')), input = parse(z.object({ message: z.string().min(1).max(5000) }).strict(), req.body)
+    const contact = await Contact.findById(id).lean()
+    if (!contact) throw new HttpError(404, 'NOT_FOUND', 'Contact submission not found')
+    const resend = new Resend(config.resendApiKey)
+    const response = await resend.emails.send({ from: config.emailFrom, to: contact.email, subject: 'Re: Your message to FASHION', text: input.message })
+    if (response.error || !response.data) throw new HttpError(502, 'EMAIL_SEND_FAILED', 'Email could not be sent')
+    await audit(owner(res), 'contact.reply', id)
+    res.json({ data: { sent: true, providerId: response.data.id } })
+  })
   router.get('/orders', async (req, res) => { const q = parse(pagination, req.query); pageResult(res, (await Order.find().sort({ createdAt: -1 }).skip((q.page - 1) * q.limit).limit(q.limit).lean()).map(dto), await Order.countDocuments(), q.page, q.limit) })
   router.put('/orders/:id/status', async (req, res) => { const input = parse(z.object({ status: z.enum(['fulfilled', 'cancelled']) }).strict(), req.body), id = documentId(pathValue(req, 'id')); await mongoose.connection.transaction(async session => { const order = await Order.findById(id).session(session); if (!order) throw new HttpError(404, 'NOT_FOUND', 'Order not found'); if (input.status === 'fulfilled') { if (order.status !== 'paid') throw new HttpError(409, 'INVALID_TRANSITION', 'Only paid orders can be fulfilled'); order.status = 'fulfilled'; await order.save({ session }) } else { if (order.stripeSessionId || order.paymentStatus === 'pending') throw new HttpError(409, 'PAYMENT_IN_PROGRESS', 'Wait for verified payment session expiration'); await releaseReservation(order, session) } await audit(owner(res), `order.${input.status}`, id, session) }); res.json({ data: { status: input.status } }) })
   router.get('/activity', async (req, res) => { const q = parse(pagination, req.query); pageResult(res, (await Activity.find().sort({ createdAt: -1, _id: 1 }).skip((q.page - 1) * q.limit).limit(q.limit).lean()).map(dto), await Activity.countDocuments(), q.page, q.limit) })
