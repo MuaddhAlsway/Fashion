@@ -1,4 +1,5 @@
 import { apiEnabled } from '../../api/config'
+import { assetUrl } from '../../api/client'
 import { useCallback, useEffect, useState } from 'react'
 import { useApi } from '../../api/ApiContext'
 
@@ -72,7 +73,7 @@ function ConnectedFeedback() {
                   <td>{item.productId}</td>
                   <td>{item.name}</td>
                   <td>{'★'.repeat(item.rating)}</td>
-                  <td>{item.image ? <img src={item.image} alt="Feedback" loading="lazy" style={{ width: '3rem', height: '3rem', objectFit: 'cover' }} /> : '—'}</td>
+                  <td>{item.image ? <img src={assetUrl(item.image)} alt="Feedback" loading="lazy" style={{ width: '3rem', height: '3rem', objectFit: 'cover' }} /> : '—'}</td>
                   <td>{item.comment}</td>
                   <td><time dateTime={item.createdAt}>{new Date(item.createdAt).toLocaleDateString()}</time></td>
                   <td><button type="button" className="admin-text-danger" onClick={() => void remove(item.recordId)}>Remove</button></td>

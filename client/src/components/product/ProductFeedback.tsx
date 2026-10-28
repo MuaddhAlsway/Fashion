@@ -1,3 +1,4 @@
+import { assetUrl } from '../../api/client'
 import { useEffect, useState } from 'react'
 import { useApi } from '../../api/ApiContext'
 import { apiEnabled } from '../../api/config'
@@ -79,7 +80,7 @@ export default function ProductFeedback({ productId }: { productId: string }) {
               <div className="product-feedback__stars" aria-label={`${item.rating} out of 5 stars`}>
                 {'★'.repeat(item.rating)}{'☆'.repeat(5 - item.rating)}
               </div>
-              {item.image && <img src={item.image} alt="Feedback attachment" loading="lazy" decoding="async" className="product-feedback__image" />}
+              {item.image && <img src={assetUrl(item.image)} alt="Feedback attachment" loading="lazy" decoding="async" className="product-feedback__image" />}
               <p>{item.comment}</p>
             </article>
           ))}
