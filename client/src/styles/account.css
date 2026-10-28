@@ -224,3 +224,76 @@
   font-size: 0.85rem;
 }
 .account-avatar__button input { display: none; }
+
+.order-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.order-list__item {
+  border: 1px solid #e7e3dc;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.order-list__item:hover {
+  border-color: #81745f;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.order-list__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.order-list__main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.order-list__main strong {
+  font-size: 0.95rem;
+}
+
+.order-status {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.order-status--paid { background: #e6f4ea; color: #1e7e34; }
+.order-status--awaiting_payment { background: #fff3cd; color: #856404; }
+.order-status--fulfilled { background: #e8f0fe; color: #1a73e8; }
+.order-status--cancelled { background: #fce8e6; color: #c5221f; }
+
+.order-list__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  color: #77736c;
+}
+
+@media (max-width: 600px) {
+  .order-list__link {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .order-list__meta {
+    align-items: flex-start;
+  }
+}
