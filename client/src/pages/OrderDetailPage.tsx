@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router'
 import { useApi } from '../api/ApiContext'
 import { apiEnabled } from '../api/config'
 import '../styles/order-detail.css'
-import '../styles/order-detail.css'
 
 type Order = {
   reference: string
@@ -19,7 +18,8 @@ const steps = ['awaiting_payment', 'paid', 'fulfilled']
 
 export default function OrderDetailPage() {
   const api = useApi()
-  const { id } = useParams()
+  const { orderId } = useParams()
+  const id = orderId
   const [order, setOrder] = useState<Order | null>(null)
   const [error, setError] = useState('')
 
