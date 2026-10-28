@@ -54,7 +54,7 @@ export default function ConnectedAccountPage() {
       <header className="account-page__header">
         <div className="account-profile">
           <div className="account-avatar">
-            {avatar ? <img src={avatar} alt={`${name} avatar`} className="account-avatar__image" /> : <span className="account-avatar__initial">{name.charAt(0).toUpperCase()}</span>}
+            {avatar ? <img loading="lazy" decoding="async" src={avatar} alt={`${name} avatar`} className="account-avatar__image" /> : <span className="account-avatar__initial">{name.charAt(0).toUpperCase()}</span>}
             <label className="account-avatar__button" title="Change avatar">
               <input ref={fileInput} type="file" accept="image/*" onChange={handleAvatarChange} disabled={uploading} hidden />
               {uploading ? '…' : '✎'}
