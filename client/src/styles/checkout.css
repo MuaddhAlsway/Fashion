@@ -264,3 +264,8 @@
     padding: 1rem;
   }
 }
+
+.checkout-phone { display: flex; gap: 0.5rem; }
+.checkout-phone select { min-width: 9rem; }
+.checkout-phone input { flex: 1; }
+

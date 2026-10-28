@@ -21,10 +21,19 @@ const initialDetails: DeliveryDetails = {
   country: '',
 }
 
+const countryCodes = [
+  { code: '+966', label: 'Saudi Arabia (+966)' },
+  { code: '+1', label: 'United States (+1)' },
+  { code: '+44', label: 'United Kingdom (+44)' },
+  { code: '+971', label: 'UAE (+971)' },
+  { code: '+91', label: 'India (+91)' },
+]
+
 function CheckoutPage() {
   const navigate = useNavigate()
   const { items, subtotal } = useCart()
   const [details, setDetails] = useState(initialDetails)
+  const [countryCode, setCountryCode] = useState('+966')
   const [showReview, setShowReview] = useState(false)
 
   function updateField(field: keyof DeliveryDetails, value: string) {
@@ -88,13 +97,21 @@ function CheckoutPage() {
 
               <label className="checkout-field">
                 <span>Phone number</span>
-                <input
-                  autoComplete="tel"
-                  type="tel"
-                  required
-                  value={details.phone}
-                  onChange={(event) => updateField('phone', event.target.value)}
-                />
+                <div className="checkout-phone">
+                  <select value={countryCode} onChange={(event) => setCountryCode(event.target.value)} aria-label="Country code">
+                    {countryCodes.map((item) => (
+                      <option key={item.code} value={item.code}>{item.label}</option>
+                    ))}
+                  </select>
+                  <input
+                    autoComplete="tel"
+                    type="tel"
+                    required
+                    value={details.phone}
+                    onChange={(event) => updateField('phone', event.target.value)}
+                    placeholder="5XXXXXXXX"
+                  />
+                </div>
               </label>
 
               <label className="checkout-field">
@@ -160,7 +177,7 @@ function CheckoutPage() {
 
               <address className="checkout-review__address">
                 <strong>{details.fullName}</strong>
-                <span>{details.phone}</span>
+                <span>{countryCode} {details.phone}</span>
                 <span>{details.address}</span>
                 <span>{details.city}, {details.postalCode}</span>
                 <span>{details.country}</span>
@@ -174,7 +191,7 @@ function CheckoutPage() {
               <button
                 className="checkout__button checkout__button--dark"
                 type="button"
-                onClick={() => navigate('/checkout/payment', { state: { details } })}
+                onClick={() => navigate('/checkout/payment', { state: { details: { ...details, phone: `${countryCode} ${details.phone}` } } })}
               >
                 Continue to payment
               </button>

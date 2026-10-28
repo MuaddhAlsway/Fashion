@@ -5,7 +5,7 @@ import { Menu, X } from 'lucide-react'
 import { useContent } from '../../context/ContentContext'
 import '../../styles/admin.css'
 
-const links = [['/admin', 'Overview'], ['/admin/products', 'Products'], ['/admin/categories', 'Marketplace content'], ['/admin/journal', 'Journal'], ['/admin/content', 'Website content'], ['/admin/legal', 'Legal pages'], ['/admin/mailing-list', 'Mailing List']]
+const links = [['/admin', 'Overview'], ['/admin/products', 'Products'], ['/admin/categories', 'Marketplace content'], ['/admin/journal', 'Journal'], ['/admin/content', 'Website content'], ['/admin/legal', 'Legal pages'], ['/admin/mailing-list', 'Mailing List'], ['/admin/contact', 'Contact Inbox']]
 function readEntry() { if (apiEnabled) return true; try { return sessionStorage.getItem('fashion-admin-demo-entry') === 'yes' } catch { return false } }
 
 function AdminLayout() {
