@@ -1,11 +1,14 @@
 # 🛍️ FASHION
 
+![FASHION — full-stack fashion storefront](Fashion/FASHION.png)
+
 Full-stack fashion storefront with an Express/TypeScript/MongoDB backend and a React/Vite frontend. Supports demo mode (local) and connected API mode (backend-backed) with Clerk authentication, customer accounts, cart, wishlist, checkout, and an admin CMS.
 
 ---
 
 ## 📑 Table of Contents
 
+- [Screenshots](#screenshots)
 - [Overview](#overview)
 - [Architecture](#architecture)
 - [Repository Structure](#repository-structure)
@@ -23,6 +26,66 @@ Full-stack fashion storefront with an Express/TypeScript/MongoDB backend and a R
 - [Security Notes](#security-notes)
 
 ---
+
+## Screenshots
+
+Explore the storefront and admin panel below. Select any screenshot to view it at full size.
+
+<details>
+<summary>Storefront and checkout · 10 screenshots</summary>
+
+<table>
+  <tr>
+    <td width="50%" valign="top"><strong>Homepage</strong><br><a href="Fashion/HomePage.png"><img src="Fashion/HomePage.png" alt="FASHION homepage screenshot" width="100%"></a></td>
+    <td width="50%" valign="top"><strong>Marketplace</strong><br><a href="Fashion/MarketPlacePage.png"><img src="Fashion/MarketPlacePage.png" alt="FASHION marketplace screenshot" width="100%"></a></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><strong>Product details</strong><br><a href="Fashion/ProductPageDetails.png"><img src="Fashion/ProductPageDetails.png" alt="FASHION product details screenshot" width="100%"></a></td>
+    <td width="50%" valign="top"><strong>Shopping bag</strong><br><a href="Fashion/Shoppingbag.png"><img src="Fashion/Shoppingbag.png" alt="FASHION shopping bag screenshot" width="100%"></a></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><strong>Delivery checkout</strong><br><a href="Fashion/CardPage.png"><img src="Fashion/CardPage.png" alt="FASHION delivery checkout screenshot" width="100%"></a></td>
+    <td width="50%" valign="top"><strong>Payment selection</strong><br><a href="Fashion/PaymentMethod.png"><img src="Fashion/PaymentMethod.png" alt="FASHION payment selection screenshot" width="100%"></a></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><strong>Account</strong><br><a href="Fashion/AccountPage.png"><img src="Fashion/AccountPage.png" alt="FASHION account screenshot" width="100%"></a></td>
+    <td width="50%" valign="top"><strong>About</strong><br><a href="Fashion/AboutPage.png"><img src="Fashion/AboutPage.png" alt="FASHION about screenshot" width="100%"></a></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><strong>Contact</strong><br><a href="Fashion/ContactPage.png"><img src="Fashion/ContactPage.png" alt="FASHION contact screenshot" width="100%"></a></td>
+    <td width="50%" valign="top"><strong>Journal</strong><br><a href="Fashion/JournalPage.png"><img src="Fashion/JournalPage.png" alt="FASHION journal screenshot" width="100%"></a></td>
+  </tr>
+</table>
+
+</details>
+
+<details>
+<summary>Admin panel · 10 screenshots</summary>
+
+<table>
+  <tr>
+    <td width="50%" valign="top"><strong>Dashboard overview</strong><br><a href="Fashion/AdminOverview.png"><img src="Fashion/AdminOverview.png" alt="FASHION dashboard overview screenshot" width="100%"></a></td>
+    <td width="50%" valign="top"><strong>Product management</strong><br><a href="Fashion/AdminProduct.png"><img src="Fashion/AdminProduct.png" alt="FASHION product management screenshot" width="100%"></a></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><strong>Marketplace categories</strong><br><a href="Fashion/MerketPlaceAdmin.png"><img src="Fashion/MerketPlaceAdmin.png" alt="FASHION marketplace categories screenshot" width="100%"></a></td>
+    <td width="50%" valign="top"><strong>Journal management</strong><br><a href="Fashion/JournalAdmin.png"><img src="Fashion/JournalAdmin.png" alt="FASHION journal management screenshot" width="100%"></a></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><strong>Website content</strong><br><a href="Fashion/ContentManagment.png"><img src="Fashion/ContentManagment.png" alt="FASHION website content screenshot" width="100%"></a></td>
+    <td width="50%" valign="top"><strong>Legal pages</strong><br><a href="Fashion/LegalPageAdmin.png"><img src="Fashion/LegalPageAdmin.png" alt="FASHION legal pages screenshot" width="100%"></a></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><strong>Mailing list</strong><br><a href="Fashion/MailListAdmin.png"><img src="Fashion/MailListAdmin.png" alt="FASHION mailing list screenshot" width="100%"></a></td>
+    <td width="50%" valign="top"><strong>Contact inbox</strong><br><a href="Fashion/ContactInbox.png"><img src="Fashion/ContactInbox.png" alt="FASHION contact inbox screenshot" width="100%"></a></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><strong>Customer feedback</strong><br><a href="Fashion/CustomerFeedbackAdmin.png"><img src="Fashion/CustomerFeedbackAdmin.png" alt="FASHION customer feedback screenshot" width="100%"></a></td>
+    <td width="50%" valign="top"><strong>Orders</strong><br><a href="Fashion/OrderPage.png"><img src="Fashion/OrderPage.png" alt="FASHION orders screenshot" width="100%"></a></td>
+  </tr>
+</table>
+
+</details>
 
 ## 📖 Overview
 
