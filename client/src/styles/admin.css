@@ -15,7 +15,7 @@
 .admin-shell .admin-text-danger { color: #933b2c; }
 .admin-confirm .admin-danger { background: #933b2c; color: #fffaf2; border-color: #933b2c; }
 .admin-shell :is(a, button, input, select, textarea):focus-visible, .admin-gate :is(a, button):focus-visible, .admin-confirm button:focus-visible, .admin-table-wrap:focus-visible { outline: 2px solid #80674f; outline-offset: 4px; }
-.admin-sidebar { position: sticky; top: 0; display: flex; flex-direction: column; height: 100dvh; min-width: 0; overflow-y: auto; padding: 2rem 1.25rem; background: #29251f; color: #faf7f1; }
+.admin-sidebar { position: sticky; top: 0; display: flex; flex-direction: column; height: 100dvh; min-width: 0; padding: 2rem 1.25rem; background: #29251f; color: #faf7f1; }
 .admin-brand { display: block; margin-bottom: 2.5rem; font-family: 'Prata', Georgia, serif; font-size: 1.5rem; text-decoration: none; }
 .admin-brand span { display: block; margin-top: 0.5rem; color: #cdb79b; font-family: 'Outfit', Arial, sans-serif; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; }
 .admin-sidebar nav { display: grid; gap: 0.3rem; }
