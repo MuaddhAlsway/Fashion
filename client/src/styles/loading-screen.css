@@ -1,0 +1,13 @@
+.page-loading { position: fixed; inset: 0; z-index: 10000; display: grid; place-items: center; padding: 1.5rem; background: #f8f7f4; color: #171715; pointer-events: none; animation: page-loading-reveal 150ms ease-out both; }
+.page-loading__content { display: flex; width: min(100%, 20rem); flex-direction: column; align-items: center; text-align: center; }
+.page-loading__eyebrow { margin-bottom: 1.5rem; color: #8a6b42; font: 500 0.625rem 'Outfit', Arial, sans-serif; letter-spacing: 0.22em; }
+.page-loading__brand { font: clamp(2rem, 8vw, 3rem) 'Prata', Georgia, serif; letter-spacing: 0.12em; }
+.page-loading__track { width: 7rem; height: 2px; margin-top: 2rem; overflow: hidden; background: #e8e5df; }
+.page-loading__track span { display: block; width: 45%; height: 100%; background: #8a6b42; animation: page-loading-progress 1s ease-in-out infinite; }
+.page-loading__label { margin-top: 1rem; color: #55534f; font: 400 0.75rem/1.5 'Outfit', Arial, sans-serif; letter-spacing: 0.04em; }
+@keyframes page-loading-progress { from { transform: translateX(-110%); } to { transform: translateX(330%); } }
+@keyframes page-loading-reveal { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .page-loading, .page-loading__track span { animation: none; }
+  .page-loading__track span { width: 100%; }
+}

@@ -16,6 +16,7 @@ import { BrowserRouter, Outlet, Route, Routes } from 'react-router'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import ScrollToTop from './components/ScrollToTop'
+import NavigationLoading from './components/NavigationLoading'
 import HomePage from './pages/HomePage'
 import MarketplacePage from './pages/MarketplacePage'
 import ProductDetailPage from './pages/ProductDetailPage'
@@ -43,6 +44,7 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <NavigationLoading />
       <Routes>
         <Route path="/admin" element={apiEnabled ? <ApiAdminGuard><AdminLayout /></ApiAdminGuard> : <AdminLayout />}>
           <Route index element={<AdminDashboard />} />
@@ -83,4 +85,5 @@ function App() {
 }
 
 export default App
+
 
