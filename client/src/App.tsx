@@ -22,6 +22,7 @@ import CartPage from './pages/CartPage'
 import CheckoutPage from './pages/CheckoutPage'
 import PaymentPage from './pages/PaymentPage'
 import OrderConfirmationPage from './pages/OrderConfirmationPage'
+import OrderDetailPage from './pages/OrderDetailPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import AccountPage from './pages/AccountPage'
@@ -62,6 +63,7 @@ function App() {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/checkout/payment" element={<PaymentPage />} />
           <Route path="/checkout/confirmation" element={<OrderConfirmationPage />} />
+          <Route path="/orders/:orderId" element={<OrderDetailPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/account" element={<AccountPage />} />
