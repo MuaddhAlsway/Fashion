@@ -35,7 +35,7 @@ function AdminLayout() {
       <nav aria-label="Admin navigation">{links.map(([to, label]) => <NavLink key={to} to={to} end={to === '/admin'} onClick={() => setMenuOpen(false)}>{label}</NavLink>)}</nav>
       <div className="admin-sidebar__end"><p>{apiEnabled ? 'Verified account. Server permissions. Persistent content.' : 'No backend. No secure access control. Session-only content.'}</p><Link to="/">View storefront ↗</Link><button type="button" onClick={() => { try { sessionStorage.removeItem('fashion-admin-demo-entry') } catch { /* No persistent gate. */ } setEntered(false); navigate('/') }}>Exit demo admin</button></div>
     </aside>
-    <main className="admin-main" id="admin-main"><div className="admin-demo-notice">{apiEnabled ? 'CONNECTED WORKSPACE' : 'DEMO WORKSPACE'} <span>{apiEnabled ? 'Edits are saved through authorized server APIs.' : 'Edits affect this tab only. Original source files are unchanged.'}</span></div>{storageError && <p className="admin-error" role="alert">{storageError}</p>}<Outlet /></main>
+    <main className="admin-main" id="admin-main">{storageError && <p className="admin-error" role="alert">{storageError}</p>}<Outlet /></main>
   </div>
 }
 export default AdminLayout
