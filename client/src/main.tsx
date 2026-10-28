@@ -20,6 +20,13 @@ import ApiRuntime from './api/ApiRuntime'
 import ApiContentProvider from './api/ApiContentProvider'
 import { ConnectedCart, ConnectedWishlist } from './api/Shopping'
 
+const loadingEl = document.getElementById('app-loading')
+if (loadingEl) {
+  window.addEventListener('load', () => {
+    loadingEl.classList.add('is-hidden')
+    setTimeout(() => loadingEl.remove(), 400)
+  }, { once: true })
+}
 createRoot(document.getElementById('root')!).render(
   <StrictMode>{apiEnabled ?
     <ApiRuntime><ApiContentProvider><ConnectedCart><ConnectedWishlist><App /></ConnectedWishlist></ConnectedCart></ApiContentProvider></ApiRuntime> :

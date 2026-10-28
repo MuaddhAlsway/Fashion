@@ -67,7 +67,8 @@ export function adminRoutes(config: Environment) {
     const contact = await Contact.findById(id).lean()
     if (!contact) throw new HttpError(404, 'NOT_FOUND', 'Contact submission not found')
     const resend = new Resend(config.resendApiKey)
-    const response = await resend.emails.send({ from: config.emailFrom, to: contact.email, subject: 'Re: Your message to FASHION', text: input.message })
+    const html = `<div style="font-family:Outfit,Arial,sans-serif;max-width:600px;margin:0 auto;padding:2rem;background:#f7f5f2;color:#211f1b;"><h1 style="font-family:Prata,Georgia,serif;font-weight:400;margin:0 0 1rem;">FASHION</h1><p style="color:#77736c;margin:0 0 1.5rem;">Reply to your message</p><div style="background:#fff;padding:1.5rem;border:1px solid #e7e3dc;margin-bottom:1.5rem;"><p style="margin:0 0 1rem;">Hi ${contact.name},</p><p style="white-space:pre-wrap;margin:0;">${input.message}</p></div><p style="font-size:0.85rem;color:#77736c;">Thank you for contacting FASHION. We will get back to you if you have further questions.</p></div>`
+    const response = await resend.emails.send({ from: config.emailFrom, to: contact.email, subject: 'Re: Your message to FASHION', html, text: input.message })
     if (response.error || !response.data) throw new HttpError(502, 'EMAIL_SEND_FAILED', 'Email could not be sent')
     await audit(owner(res), 'contact.reply', id)
     res.json({ data: { sent: true, providerId: response.data.id } })
