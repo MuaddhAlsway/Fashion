@@ -119,3 +119,30 @@
 .admin-shell, .admin-main, .admin-table-wrap, .admin-sidebar { scrollbar-width: none; -ms-overflow-style: none; }
 .admin-shell::-webkit-scrollbar, .admin-main::-webkit-scrollbar, .admin-table-wrap::-webkit-scrollbar, .admin-sidebar::-webkit-scrollbar { display: none; }
 
+
+/* Overview activity timeline, using the sidebar's warm charcoal and sand palette. */
+.admin-recent { padding: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 6px 24px #29251f05; scroll-margin-top: 1.5rem; }
+.admin-recent__header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.5rem; border-bottom: 1px solid #e8dfd2; }
+.admin-recent__heading { display: flex; align-items: center; gap: 0.9rem; min-width: 0; }
+.admin-recent__symbol { display: grid; place-items: center; width: 44px; height: 44px; flex-shrink: 0; border-radius: 12px; background: #29251f; color: #cdb79b; }
+.admin-recent__heading .admin-eyebrow { margin: 0 0 0.35rem; font-size: 0.6rem; }
+.admin-recent__heading h2 { margin: 0; font-size: clamp(1.05rem, 2vw, 1.25rem); }
+.admin-recent__badge { padding: 0.4rem 0.65rem; border: 1px solid #e0d5c6; border-radius: 999px; background: #f5f1e9; color: #665e54; font-size: 0.65rem; }
+.admin-recent__list { margin: 0; padding: 0.5rem 1.5rem; list-style: none; }
+.admin-recent__list li { position: relative; display: flex; align-items: start; gap: 0.9rem; padding: 1.1rem 0; }
+.admin-recent__list li:not(:last-child)::after { content: ''; position: absolute; top: 3.2rem; bottom: -0.9rem; left: 15px; width: 1px; background: #e0d5c6; }
+.admin-recent__marker { display: grid; place-items: center; flex-shrink: 0; width: 31px; height: 31px; border: 1px solid #e0d5c6; border-radius: 50%; background: #f5f1e9; color: #80674f; }
+.admin-recent__list li:first-child .admin-recent__marker { background: #484037; color: #fffaf2; border-color: #484037; }
+.admin-recent__entry { flex: 1; min-width: 0; }
+.admin-recent__entry p { margin: 0 0 0.4rem; font-size: 0.82rem; overflow-wrap: anywhere; }
+.admin-recent__entry time { display: flex; align-items: center; flex-wrap: wrap; gap: 0.35rem; color: #80674f; font-size: 0.68rem; }
+.admin-recent__latest { padding-top: 0.3rem; color: #80674f; font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.admin-recent__empty { display: flex; flex-direction: column; align-items: center; padding: 2.75rem 1.5rem; text-align: center; }
+.admin-recent__empty-icon { display: grid; place-items: center; width: 64px; height: 64px; margin-bottom: 1rem; border: 1px solid #e0d5c6; border-radius: 20px; color: #80674f; background: #f5f1e9; }
+.admin-recent__empty h3 { margin: 0; font-size: 0.95rem; font-weight: 500; }
+.admin-recent__empty p { max-width: 34ch; margin: 0.6rem 0 0; color: #665e54; font-size: 0.8rem; }
+.admin-recent__footer { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; padding: 1rem 1.5rem; border-top: 1px solid #e8dfd2; background: #f5f1e980; color: #665e54; font-size: 0.65rem; }
+.admin-recent__footer > span:last-child { margin-left: auto; }
+.admin-recent__dot { width: 5px; height: 5px; border-radius: 50%; background: #80674f; }
+.admin-recent__notice { padding: 1.5rem; font-size: 0.85rem; }
+@media (max-width: 480px) { .admin-recent__header, .admin-recent__footer { padding: 1rem; } .admin-recent__list { padding-inline: 1rem; } .admin-recent__latest { display: none; } }
